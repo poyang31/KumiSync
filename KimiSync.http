@@ -1,6 +1,19 @@
-@KimiSync_HostAddress = http://localhost:5036
+@host = http://localhost:5036
+@origin = https://example.com
+@token = replace-with-secret
 
-GET {{KimiSync_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{host}}/auth/client
+Origin: {{origin}}
 
 ###
+PUT {{host}}/sync/data
+Origin: {{origin}}
+X-Kumi-Token: {{token}}
+Content-Type: application/json
+
+{"content":"backup"}
+
+###
+GET {{host}}/sync/data
+Origin: {{origin}}
+X-Kumi-Token: {{token}}
